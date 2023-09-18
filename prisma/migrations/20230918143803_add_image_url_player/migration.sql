@@ -1,9 +1,20 @@
 /*
   Warnings:
 
+  - You are about to drop the column `teamId` on the `Players` table. All the data in the column will be lost.
   - A unique constraint covering the columns `[email]` on the table `User` will be added. If there are existing duplicate values, this will fail.
+  - Added the required column `imageUrlPlayer` to the `Players` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `org` to the `Players` table without a default value. This is not possible if the table is not empty.
 
 */
+-- DropForeignKey
+ALTER TABLE "Players" DROP CONSTRAINT "Players_teamId_fkey";
+
+-- AlterTable
+ALTER TABLE "Players" DROP COLUMN "teamId",
+ADD COLUMN     "imageUrlPlayer" TEXT NOT NULL,
+ADD COLUMN     "org" TEXT NOT NULL;
+
 -- AlterTable
 ALTER TABLE "User" ADD COLUMN     "email" TEXT,
 ADD COLUMN     "emailVerified" TIMESTAMP(3),
