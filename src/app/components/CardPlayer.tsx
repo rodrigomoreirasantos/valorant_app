@@ -1,15 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlayersContent from "./PlayersContent";
+import { PlayersType } from "../types/player";
 
 const CardPlayer = () => {
   const [openPlayers, setOpenPlayers] = useState(false);
-
+  const [players, setPlayers] = useState<PlayersType[]>([]);
   const handleOpenPlayers = () => {
     setOpenPlayers(!openPlayers);
   };
+
+  useEffect(() => {
+    fetch("/api/player")
+      .then((res) => res.json())
+      .then((data) => setPlayers(data));
+  }, [openPlayers]);
 
   return (
     <div className="container w-auto h-screen flex justify-center items-start mt-2">
@@ -21,7 +28,15 @@ const CardPlayer = () => {
           ADD PLAYER
         </button>
 
-        <div className="w-full">{openPlayers && <PlayersContent />}</div>
+        <div className="w-full">
+          {openPlayers && (
+            <div className="h-40 px-3 bg-light text-dark flex justify-center items-center gap-5 rounded-t-xl cursor-pointer">
+              {players.map((player) => (
+                <PlayersContent key={player.id} {...player} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* <div className="flex-col items-center justify-center">
