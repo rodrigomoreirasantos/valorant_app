@@ -2,6 +2,7 @@ import { NextAuthProvider } from "@/providers/auth";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import Header from "./components/Header";
+import PlayerSelectedContextProvider from "@/context/teamPlayers.context";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: ChildrenProp) {
     <html lang="en">
       <body className={poppins.className}>
         <NextAuthProvider>
-          <Header />
-          {children}
+          <PlayerSelectedContextProvider>
+            <Header />
+            {children}
+          </PlayerSelectedContextProvider>
         </NextAuthProvider>
       </body>
     </html>
