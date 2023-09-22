@@ -1,24 +1,26 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
+// Icons
 import { AiOutlineUser } from "react-icons/ai";
+
+// Types
 import { PlayersType } from "../types/player";
+
+// Components
 import { PlayersSelectedContext } from "@/context/teamPlayers.context";
 
 const PlayersContent = (player: PlayersType) => {
-  const { players, teamPlayersSelected } = useContext(PlayersSelectedContext);
+  const { teamPlayersSelected } = useContext(PlayersSelectedContext);
 
-  const handlePlayerSelected = (playerId: any) => {
-    teamPlayersSelected(playerId);
+  const handlePlayerSelected = (player: any) => {
+    teamPlayersSelected(player);
   };
 
-  useEffect(() => {
-    console.log(players);
-  }, [players]);
   return (
     <div
       className="flex flex-col items-center border border-dark p-1"
-      onClick={() => handlePlayerSelected(player.name)}
+      onClick={() => handlePlayerSelected(player)}
     >
       <p className="flex gap-2">
         <span>{player.name}</span>
