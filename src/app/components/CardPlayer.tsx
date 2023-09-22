@@ -4,10 +4,12 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import PlayersContent from "./PlayersContent";
 import { PlayersType } from "../types/player";
+import MyTeam from "./MyTeam";
 
 const CardPlayer = () => {
   const [openPlayers, setOpenPlayers] = useState(false);
   const [players, setPlayers] = useState<PlayersType[]>([]);
+
   const handleOpenPlayers = () => {
     setOpenPlayers(!openPlayers);
   };
@@ -27,6 +29,10 @@ const CardPlayer = () => {
         >
           ADD PLAYER
         </button>
+
+        <div>
+          <MyTeam />
+        </div>
 
         <div className="w-full">
           {openPlayers && (
