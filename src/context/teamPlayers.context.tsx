@@ -1,5 +1,6 @@
 "use client";
 
+import { PlayersInfoProp } from "@/app/types/player";
 import { createContext, useState } from "react";
 
 interface ChildrenProp {
@@ -7,8 +8,8 @@ interface ChildrenProp {
 }
 
 interface PlayersTeamProp {
-  teamPlayersSelected: (playerId: string) => void;
-  players: string[];
+  teamPlayersSelected: (playerInformation: string[]) => void;
+  players: PlayersInfoProp[];
 }
 
 export const PlayersSelectedContext = createContext<PlayersTeamProp>({
@@ -17,10 +18,18 @@ export const PlayersSelectedContext = createContext<PlayersTeamProp>({
 });
 
 const PlayerSelectedContextProvider = ({ children }: ChildrenProp) => {
-  const [players, setPlayers] = useState<any>([]);
+  const [players, setPlayers] = useState<PlayersInfoProp[]>([]);
 
-  const teamPlayersSelected = (playerId: string) => {
-    setPlayers([...players, playerId]);
+  const teamPlayersSelected = (playerInformation: any) => {
+    const foundPlayer = players.find(
+      (player) => player.id === playerInformation.id
+    );
+
+    if (foundPlayer !== undefined) {
+      console.log("Player ja adicionado");
+    } else {
+      setPlayers([...players, playerInformation]);
+    }
   };
 
   return (
